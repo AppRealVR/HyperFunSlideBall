@@ -1,0 +1,59 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5590751323883813716
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5590751323883813722}
+  - component: {fileID: 5590751323883813723}
+  m_Layer: 0
+  m_Name: ObstacleManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5590751323883813722
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590751323883813716}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5590751323883813723
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5590751323883813716}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b7064b70ad7ea48e296d1f0f15b0849f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  PlaerObj: {fileID: 0}
+  obstacles:
+  - {fileID: 1088748219664210975, guid: ed814ce4189b94062a3daf8e3ccab864, type: 3}
+  - {fileID: 745975511619268575, guid: 6869130f44b44472eab1a2f1bd34c024, type: 3}
+  - {fileID: 8937231194501833118, guid: d28638a1ef0384b76885156dbbdf4129, type: 3}
+  - {fileID: 8579451180301075296, guid: 87e1b74a9379844eaacd5554aff65679, type: 3}
+  - {fileID: 2304957141770390868, guid: 16c822f5d91ac4f998478ab3858782a3, type: 3}
+  - {fileID: 4927319534896346098, guid: 9df93f2b9acbf4a3a8f9926827036039, type: 3}
+  - {fileID: 8513932944185985934, guid: 0b5a86ede2dbc449eacf10e365224d9e, type: 3}
+  - {fileID: 1238190063516102609, guid: c705c1461d2094dc8b6177003c1b52c8, type: 3}
+  - {fileID: 6173484358185054605, guid: 39cbccea0a14247a79e9a13bddcb878e, type: 3}
+  finishSignObj: {fileID: 8866415197562118650, guid: 759d03be85d394124b42e68cf289ad9d,
+    type: 3}
+  levelLength: 1
