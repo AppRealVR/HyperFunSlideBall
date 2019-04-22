@@ -41,7 +41,21 @@ public class GameManager : MonoBehaviour
 
 	private void Start()
 	{
-        
+        /* Mandatory - set your AppsFlyer’s Developer key. */
+        AppsFlyer.setAppsFlyerKey("YOUR_APPSFLYER_DEV_KEY");
+        /* For detailed logging */
+        /* AppsFlyer.setIsDebug (true); */
+    #if UNITY_IOS
+  /* Mandatory - set your apple app ID
+   NOTE: You should enter the number only and not the "ID" prefix */
+  AppsFlyer.setAppID ("YOUR_APP_ID_HERE");
+  AppsFlyer.trackAppLaunch ();
+#elif UNITY_ANDROID
+        /* Mandatory - set your Android package name */
+        AppsFlyer.setAppID("com.crazyball.HyperFunSlideBall");
+        /* For getting the conversion data in Android, you need to add the "AppsFlyerTrackerCallbacks" listener.*/
+        AppsFlyer.init("JxvrkiKEwMebu8Qh4zfUaj");
+#endif 
 
         adManager = GameObject.FindGameObjectWithTag("IronSourceManager").GetComponent<AdManager>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -50,6 +64,9 @@ public class GameManager : MonoBehaviour
         hueValue = Random.Range(0,10) / 10.0f;
         SetBackgroundColor();
         lifeText.text = lifes.ToString();
+
+        PrivacyPolicyPopup.Init("Hyper Fun Slide Ball", "https://www.crazyballstudio.com/privacy-policy-hyper-fun-slide-ball", null);
+
       
 	}
 

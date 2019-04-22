@@ -10,18 +10,18 @@ public class Player : MonoBehaviour
 
 
     float angel = 0;
+    float bounceFactor = 3;
+
     int xSpeed = 3;
     int xSpeedStaic = 20;
     int ySpeed = 10;
 
-    float bounceFactor = 3;
-
+   
 
     Rigidbody2D rd;
     GameManager gameManager;
 
     public GameObject itemEffectObj;
-
     public bool isDead = false;
 
 	private void Awake()
@@ -43,6 +43,9 @@ public class Player : MonoBehaviour
 
     void MovePlayer()
     {
+        if (PlayerPrefs.GetInt("privacyPolicyShown", 0) != 1)
+            return;         
+
         if (!isDead)
         {
             Vector2 pos = transform.position;
@@ -61,6 +64,9 @@ public class Player : MonoBehaviour
 
     void GetInput()
     {
+        if (PlayerPrefs.GetInt("privacyPolicyShown", 0) != 1)
+            return;         
+
         if(Input.GetMouseButton(0))
         {
             rd.AddForce(new Vector2(0,ySpeed));
