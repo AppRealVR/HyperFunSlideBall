@@ -23,6 +23,7 @@ public class Player : MonoBehaviour
 
     public GameObject itemEffectObj;
     public bool isDead = false;
+    public float yVelosityLimitation = 30f;
 
 	private void Awake()
 	{
@@ -69,7 +70,9 @@ public class Player : MonoBehaviour
 
         if(Input.GetMouseButton(0))
         {
+            if(rd.velocity.y < yVelosityLimitation)
             rd.AddForce(new Vector2(0,ySpeed));
+
         }else
         {
             if (rd.velocity.y > 0)
