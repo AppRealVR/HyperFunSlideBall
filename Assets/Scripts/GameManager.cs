@@ -16,6 +16,12 @@ public class GameManager : MonoBehaviour
     public Text LevelDoneText;
     public Text lifeText;
     public GameObject continueBtn;
+    public AudioClip getIttemClip;
+    public AudioClip obstacleTouchClip;
+    public AudioClip loseCLip;
+    public AudioClip wonClip;
+
+    private AudioSource audio;
 
     public int amoutOfLevelsEverPlayed = 0;
 
@@ -66,6 +72,7 @@ public class GameManager : MonoBehaviour
         lifeText.text = lifes.ToString();
 
         PrivacyPolicyPopup.Init("Hyper Fun Slide Ball", "https://www.crazyballstudio.com/privacy-policy-hyper-fun-slide-ball", null);
+        audio = gameObject.GetComponent<AudioSource>();
 
       
 	}
@@ -74,6 +81,9 @@ public class GameManager : MonoBehaviour
 	public void LevelDone()
     {
         level++;
+
+        audio.clip = wonClip;
+        audio.Play();
 
         amoutOfLevelsEverPlayed++;
         PlayerPrefs.SetInt("AmountOfLevels", amoutOfLevelsEverPlayed);
@@ -91,6 +101,8 @@ public class GameManager : MonoBehaviour
 
 	public void GameOver()
     {
+        audio.clip = loseCLip;
+        audio.Play();
         Handheld.Vibrate();
         GameOverPanel.SetActive(true);
 
@@ -120,7 +132,9 @@ public class GameManager : MonoBehaviour
 
     public void addScore()
     {
-        Debug.Log("Called ");
+
+        audio.clip = getIttemClip;
+        audio.Play();
         score++;
         //Handheld.Vibrate();
         Vibration.Vibrate(55);
@@ -147,6 +161,8 @@ public class GameManager : MonoBehaviour
 
     public void minusLife()
     {
+        audio.clip = obstacleTouchClip;
+        audio.Play();
         lifes--;
         lifeText.text = lifes.ToString();
     }
