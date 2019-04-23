@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine;
 using UnityEngine.UI;
-
+using Facebook.Unity;
 
 public class AdManager : MonoBehaviour
 {
@@ -11,6 +11,37 @@ public class AdManager : MonoBehaviour
     GameManager gameManager;
 
     public bool videoStauts = false;
+
+    void Awake()
+    {
+        if (!FB.IsInitialized)
+        {
+            // Initialize the Facebook SDK
+            FB.Init(InitCallback);
+        }
+        else
+        {
+            // Already initialized, signal an app activation App Event
+            FB.ActivateApp();
+        }
+    }
+
+    private void InitCallback()
+    {
+        if (FB.IsInitialized)
+        {
+            // Signal an app activation App Event
+            FB.ActivateApp();
+            // Continue with Facebook SDK
+            // ...
+        }
+        else
+        {
+            Debug.Log("Failed to Initialize the Facebook SDK");
+        }
+    }
+
+   
 
 	private void Start()
     {
