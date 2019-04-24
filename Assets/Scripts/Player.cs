@@ -44,8 +44,7 @@ public class Player : MonoBehaviour
 
     void MovePlayer()
     {
-        if (PlayerPrefs.GetInt("privacyPolicyShown", 0) != 1)
-            return;         
+         
 
         if (!isDead)
         {

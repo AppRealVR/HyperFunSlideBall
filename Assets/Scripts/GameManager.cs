@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using GameAnalyticsSDK;
+
 
 public class GameManager : MonoBehaviour
 {
@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     public int amoutOfLevelsEverPlayed = 0;
 
     AdManager adManager;
-
+    AnaliticsController analiticsController;
 
     public int lifes = 3;
 
@@ -41,27 +41,29 @@ public class GameManager : MonoBehaviour
 
 	private void Awake()
 	{
-        GameAnalytics.Initialize();
+       // GameAnalytics.Initialize();
         amoutOfLevelsEverPlayed = PlayerPrefs.GetInt("AmountOfLevels", 0);
 	}
 
 	private void Start()
 	{
         /* Mandatory - set your AppsFlyer’s Developer key. */
-        AppsFlyer.setAppsFlyerKey("YOUR_APPSFLYER_DEV_KEY");
+        AppsFlyer.setAppsFlyerKey("com.crazyball.HyperFunSlideBall");
         /* For detailed logging */
         /* AppsFlyer.setIsDebug (true); */
-    #if UNITY_IOS
-  /* Mandatory - set your apple app ID
-   NOTE: You should enter the number only and not the "ID" prefix */
-  AppsFlyer.setAppID ("YOUR_APP_ID_HERE");
-  AppsFlyer.trackAppLaunch ();
-#elif UNITY_ANDROID
+        #if UNITY_IOS
+        /* Mandatory - set your apple app ID
+        NOTE: You should enter the number only and not the "ID" prefix */
+        AppsFlyer.setAppID ("YOUR_APP_ID_HERE");
+        AppsFlyer.trackAppLaunch ();
+         #elif UNITY_ANDROID
         /* Mandatory - set your Android package name */
         AppsFlyer.setAppID("com.crazyball.HyperFunSlideBall");
         /* For getting the conversion data in Android, you need to add the "AppsFlyerTrackerCallbacks" listener.*/
         AppsFlyer.init("JxvrkiKEwMebu8Qh4zfUaj");
-#endif 
+#endif
+
+        analiticsController = gameObject.GetComponent<AnaliticsController>();
 
         adManager = GameObject.FindGameObjectWithTag("IronSourceManager").GetComponent<AdManager>();
         player = GameObject.FindGameObjectWithTag("Player");
@@ -71,7 +73,7 @@ public class GameManager : MonoBehaviour
         SetBackgroundColor();
         lifeText.text = lifes.ToString();
 
-        PrivacyPolicyPopup.Init("Hyper Fun Slide Ball", "https://www.crazyballstudio.com/privacy-policy-hyper-fun-slide-ball", null);
+     
         audio = gameObject.GetComponent<AudioSource>();
 
       
@@ -90,13 +92,11 @@ public class GameManager : MonoBehaviour
 
         Vibration.Vibrate(100);
         PlayerPrefs.SetInt("CurrentLevel", level);
-
         LevelCompletePanel.SetActive(true);
         LevelDoneText.text = "Your Score "+score;
         scoreItems.SetActive(false);
 
-        GameAnalytics.NewProgressionEvent( GAProgressionStatus.Complete, level.ToString());
- 
+        //GameAnalytics.NewProgressionEvent( GAProgressionStatus.Complete, "Level #"+level.ToString());
     }
 
 	public void GameOver()
@@ -136,6 +136,7 @@ public class GameManager : MonoBehaviour
         audio.clip = getIttemClip;
         audio.Play();
         score++;
+        PlayerPrefs.SetInt("LastScore",score);
         //Handheld.Vibrate();
         Vibration.Vibrate(55);
         if (score > PlayerPrefs.GetInt("BestScore",0))
@@ -146,6 +147,7 @@ public class GameManager : MonoBehaviour
 
         scoreText.text = score.ToString();
         SetBackgroundColor();
+        analiticsController.TrackThantScore(score);
     }
 
     public void SetBackgroundColor()

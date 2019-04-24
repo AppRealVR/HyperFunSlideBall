@@ -56,7 +56,7 @@ public class ObstacleManager : MonoBehaviour
         {
             RandomInt = obstacleCount - 1; //Random.Range(0, 2);
         }
-        Debug.Log("Levels Played "+gameManager.amoutOfLevelsEverPlayed);
+       
 
         GameObject newOstacle = Instantiate(obstacles[RandomInt], new Vector3(0, obstacleIndex * distanceToNext),Quaternion.identity);
         newOstacle.transform.SetParent(transform);

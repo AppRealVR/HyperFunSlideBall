@@ -32,7 +32,9 @@ public class PlayerTutorial : MonoBehaviour
 	void Start()
     {
         rd = gameObject.GetComponent<Rigidbody2D>();
-
+        GameAnalytics.NewProgressionEvent(GAProgressionStatus.Start, "TutorialStart");
+        GameAnalytics.NewDesignEvent("StartedTutorial");
+       
     }
 
   
@@ -56,6 +58,9 @@ public class PlayerTutorial : MonoBehaviour
 
     void GetInput()
     {
+        if (PlayerPrefs.GetInt("privacyPolicyShown", 0) != 1)
+            return;       
+        
         if (Input.GetMouseButton(0))
         {
             rd.AddForce(new Vector2(0, ySpeed));
@@ -88,7 +93,7 @@ public class PlayerTutorial : MonoBehaviour
 
         if (collision.gameObject.tag == "TutorialStep2")
         {
-            tutorialStepTwoImg.SetActive(true);
+          //  tutorialStepTwoImg.SetActive(true);
         }
 
         if (collision.gameObject.tag == "SkipTrigger")
@@ -130,8 +135,10 @@ public class PlayerTutorial : MonoBehaviour
 
     public void LevelDone()
     {
+        PlayerPrefs.SetInt("TutorialComlete", 1);
+        GameAnalytics.NewDesignEvent("Tutorial Complete");
         GameAnalytics.NewProgressionEvent(GAProgressionStatus.Complete, "Copmlete Tutorial");
         Vibration.Vibrate(100);
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene("WaveExperiance");
     }
 }

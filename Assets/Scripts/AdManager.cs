@@ -9,7 +9,7 @@ public class AdManager : MonoBehaviour
 {
     [SerializeField]
     GameManager gameManager;
-
+    AnaliticsController analiticsController;
     public bool videoStauts = false;
 
     void Awake()
@@ -46,6 +46,7 @@ public class AdManager : MonoBehaviour
 	private void Start()
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
+        analiticsController = gameManager.GetComponent<AnaliticsController>();
 
         IronSourceEvents.onRewardedVideoAdOpenedEvent += RewardedVideoAdOpenedEvent;
         IronSourceEvents.onRewardedVideoAdClosedEvent += RewardedVideoAdClosedEvent;
@@ -136,6 +137,7 @@ public class AdManager : MonoBehaviour
     {
         gameManager = GameObject.FindGameObjectWithTag("GameManager").GetComponent<GameManager>();
         gameManager.restoreGame();
+        analiticsController.TraxhThatWatchVideo();
        
     }
     //Invoked when the Rewarded Video failed to show
